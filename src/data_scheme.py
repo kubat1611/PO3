@@ -6,7 +6,7 @@ class User:
         self.birth_year = birth_year
         self.group = group
 
-    def json(self):
+    def to_json(self):
         return {
             "id": self.id,
             "first_name": self.first_name,

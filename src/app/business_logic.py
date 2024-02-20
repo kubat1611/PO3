@@ -1,5 +1,4 @@
-from flask import Flask, request, jsonify
-from src.data_scheme import User
+from src.app.data_scheme import User
 
 
 class BusinessLogic:

@@ -1,5 +1,5 @@
 from flask import Flask, request, jsonify
-from src.business_logic import BusinessLogic
+from src.app.business_logic import BusinessLogic
 
 app = Flask(__name__)
 business_logic = BusinessLogic()

@@ -29,8 +29,16 @@ def get_user(user_id):
 def create_user():
     user_data = request.json
     if business_logic.is_valid_user_data(user_data):
-        new_user = business_logic.create_user(user_data)
-        return jsonify(new_user), 201
+        first_name = user_data.get('firstName')
+        last_name = user_data.get('lastName')
+        birth_year = user_data.get('birthYear')
+        group = user_data.get('group')
+
+        new_user = business_logic.create_user(first_name, last_name, birth_year, group)
+        if new_user:
+            return jsonify(new_user), 201
+        else:
+            return jsonify({'error': 'Failed to create user'}), 500
     else:
         return jsonify({'error': 'Invalid user data'}), 400
 

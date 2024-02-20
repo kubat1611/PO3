@@ -1,10 +1,10 @@
-from src.app.data_scheme import User
+from src.api.data_scheme import User
 
 
 class BusinessLogic:
     def __init__(self):
-        self.users = []
-        self.id_counter = 1
+        self.users = [User(0, "Wojciech", "Oczkowski", 1998, "premium")]
+        self.id_counter = len(self.users)
 
     def get_all_users(self):
         return [user.to_json() for user in self.users]
@@ -38,10 +38,14 @@ class BusinessLogic:
         return False
 
     def is_valid_user_data(self, user_data):
+        valid_keys = ["first_name", "last_name", "birth_year", "group"]
         valid_groups = ["user", "premium", "admin"]
-        if all(key in user_data for key in ["firstName", "lastName", "birthYear", "group"]):
-            if isinstance(user_data["birthYear"], int) and user_data["birthYear"] > 0:
-                if user_data["group"] in valid_groups:
-                    return True
-        return False
 
+        if any(key in user_data for key in valid_keys):
+            if "birth_year" in user_data and not isinstance(user_data["birth_year"], int):
+                return False
+            if "group" in user_data and user_data["group"] not in valid_groups:
+                return False
+            return True
+
+        return False

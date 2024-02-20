@@ -1,5 +1,5 @@
 from flask import Flask, request, jsonify
-from src.app.business_logic import BusinessLogic
+from src.api.business_logic import BusinessLogic
 
 app = Flask(__name__)
 business_logic = BusinessLogic()
@@ -7,7 +7,7 @@ business_logic = BusinessLogic()
 
 @app.route('/')
 def index():
-    return 'Witaj'
+    return 'Witaj użytkowniku!'
 
 
 @app.route('/users', methods=['GET'])
@@ -29,9 +29,9 @@ def get_user(user_id):
 def create_user():
     user_data = request.json
     if business_logic.is_valid_user_data(user_data):
-        first_name = user_data.get('firstName')
-        last_name = user_data.get('lastName')
-        birth_year = user_data.get('birthYear')
+        first_name = user_data.get('first_name')
+        last_name = user_data.get('last_name')
+        birth_year = user_data.get('birth_year')
         group = user_data.get('group')
 
         new_user = business_logic.create_user(first_name, last_name, birth_year, group)
@@ -46,14 +46,12 @@ def create_user():
 @app.route('/users/<int:user_id>', methods=['PATCH'])
 def update_user(user_id):
     user_data = request.json
-    if business_logic.is_valid_user_data(user_data):
-        updated_user = business_logic.update_user(user_id, user_data)
-        if updated_user:
-            return jsonify(updated_user), 200
-        else:
-            return jsonify({'error': 'User not found'}), 404
+    updated_user = business_logic.update_user(user_id, user_data)
+
+    if updated_user:
+        return jsonify(updated_user), 200
     else:
-        return jsonify({'error': 'Invalid user data'}), 400
+        return jsonify({'error': 'User not found'}), 404
 
 
 @app.route('/users/<int:user_id>', methods=['DELETE'])

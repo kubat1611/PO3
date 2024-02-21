@@ -13,17 +13,17 @@ Prosty serwis webowy umożliwiający zarządzanie użytkownikami.
 ## Endpointy
 
 ### Pobieranie listy użytkowników
-GET /users
+**GET /users**
 
 Zwraca listę wszystkich użytkowników zapisanych w serwisie.
 
 ### Pobieranie informacji o użytkowniku
-GET /users/<id>
+**GET /users/<id>**
 
 Zwraca informacje o użytkowniku o podanym ID.
 
 ### Dodawanie nowego użytkownika
-POST /users
+**POST /users**
 
 
 Tworzy nowego użytkownika na podstawie przekazanych danych. Przyjmuje dane w formacie JSON:
@@ -38,12 +38,12 @@ Tworzy nowego użytkownika na podstawie przekazanych danych. Przyjmuje dane w fo
 ```
 
 ### Aktualizacja danych użytkownika
-PATCH /users/<id>
+**PATCH /users/<id>**
 
 Aktualizuje dane użytkownika o podanym ID. Przyjmuje dane w formacie JSON, które mają zostać zaktualizowane.
 
 ### Usuwanie użytkownika
-DELETE /users/<id>
+**DELETE /users/<id>**
 
 Usuwa użytkownika o podanym ID.
 
@@ -51,11 +51,11 @@ Usuwa użytkownika o podanym ID.
 
 ### Dodanie nowego użytkownika
 
-curl -X POST -H "Content-Type: application/json" -d '{"firstName":"John","lastName":"Doe","birthYear":1990,"group":"user"}' http://localhost:5000/users
+**curl -X POST -H "Content-Type: application/json" -d '{"firstName":"John","lastName":"Doe","birthYear":1990,"group":"user"}' http://localhost:5000/users**
 
 ### Pobranie listy użytkowników
 
-curl http://localhost:5000/users
+**curl http://localhost:5000/users**
 
 ### Autor
 

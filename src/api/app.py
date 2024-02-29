@@ -5,6 +5,20 @@ app = Flask(__name__)
 business_logic = BusinessLogic()
 
 
+def is_valid_user_data(user_data):
+    valid_keys = ["first_name", "last_name", "birth_year", "group"]
+    valid_groups = ["user", "premium", "admin"]
+
+    if any(key in user_data for key in valid_keys):
+        if "birth_year" in user_data and not isinstance(user_data["birth_year"], int):
+            return False
+        if "group" in user_data and user_data["group"] not in valid_groups:
+            return False
+        return True
+
+    return False
+
+
 @app.route('/')
 def index():
     return 'Witaj użytkowniku!'
@@ -28,7 +42,7 @@ def get_user(user_id):
 @app.route('/users', methods=['POST'])
 def create_user():
     user_data = request.json
-    if business_logic.is_valid_user_data(user_data):
+    if is_valid_user_data(user_data):
         first_name = user_data.get('first_name')
         last_name = user_data.get('last_name')
         birth_year = user_data.get('birth_year')

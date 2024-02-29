@@ -37,15 +37,3 @@ class BusinessLogic:
                 return True
         return False
 
-    def is_valid_user_data(self, user_data):
-        valid_keys = ["first_name", "last_name", "birth_year", "group"]
-        valid_groups = ["user", "premium", "admin"]
-
-        if any(key in user_data for key in valid_keys):
-            if "birth_year" in user_data and not isinstance(user_data["birth_year"], int):
-                return False
-            if "group" in user_data and user_data["group"] not in valid_groups:
-                return False
-            return True
-
-        return False
